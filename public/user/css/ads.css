@@ -1,0 +1,32 @@
+.forMovieAds {
+    /*background-image: url("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg");*/
+    background-repeat: no-repeat;
+    height:10rem;
+    width:40vw;
+    background-size: cover;
+    background-position: center;
+}
+
+.PopUpAdsCenter {
+    width: 100vw;
+    max-height: 15rem;
+    margin: 0 auto;
+    z-index: 11;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.PopUpAdsBottom {
+    width: 100vw;
+    bottom: 0px;
+    max-height: 18vh;
+    z-index: 11;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
+}
