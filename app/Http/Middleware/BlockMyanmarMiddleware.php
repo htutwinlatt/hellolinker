@@ -22,8 +22,7 @@ class BlockMyanmarMiddleware
                 return $next($request);
             }
         }
-        $info =  unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
-        if ($info['geoplugin_countryName'] == 'Myanmar') {
+        if (get_user_country() == 'Myanmar') {
             return response(view('errors.isneedvpn'));
         }
         // return view('errors.isneedvpn');

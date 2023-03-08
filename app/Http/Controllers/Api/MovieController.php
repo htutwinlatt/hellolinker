@@ -9,6 +9,7 @@ use App\Models\Movie;
 use App\Models\ViewCount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
@@ -76,9 +77,9 @@ class MovieController extends Controller
     //Get DownloadLink
     public function get_link(Request $request)
     {
-        $movie = Movie::select('link', 'episodes','download_count','id')->where('id', $request->id)->where('name', $request->name)->where('trailer', $request->trailer)->first();
+        $movie = Movie::select('link', 'episodes', 'download_count', 'id')->where('id', $request->id)->where('name', $request->name)->where('trailer', $request->trailer)->first();
         $movie->update([
-            'download_count'=>$movie->download_count+1
+            'download_count' => $movie->download_count + 1,
         ]);
         $download = DownloadCount::whereDate('created_at', Carbon::today())->first();
         if ($download) {
@@ -93,27 +94,21 @@ class MovieController extends Controller
         return response()->json($movie, 200);
     }
 
+    //Get Categories List
     public function category()
     {
-        $categories = Movie::select(['type'])->get();
-        $data = [];
-        foreach ($categories as $category) {
-            $cat_array = explode(',', $category->type);
-            foreach ($cat_array as $key) {
-                $key = trim($key, " ");
-                $key = strtolower($key);
-                if (!in_array($key, $data) && $key != '') {
-                    array_push($data, $key);
-                }
-            }
-        }
+        $data = Cache::remember('categories_list', 60 * 15, function () {
+            $categories = Movie::select('type as data')->get();
+            return $this->get_array($categories, ',');
+        });
         return response()->json($data, 200);
     }
+
     // Get Movie By One Type
     public function get_movies_by_type(Request $request)
     {
         $movies = Movie::select('id', 'name', 'image_link', 'image', 'view_count')
-        ->where('type', 'like', '%' . $request->category . '%')->paginate(20);
+            ->where('type', 'like', '%' . $request->category . '%')->paginate(20);
         foreach ($movies as $mov) {
             $mov->rating = $this->getRating($mov->id);
             if ($mov->view_count > 1000) {
@@ -122,6 +117,32 @@ class MovieController extends Controller
         }
         return response()->json($movies, 200);
 
+    }
+
+    //Get Actors List
+    public function actors()
+    {
+        $cacheKey = 'actors_list';
+        $cacheTime = 20 * 15;
+        $actors = Cache::remember($cacheKey, $cacheTime, function () {
+            $movies = Movie::select('actors as data')->whereNotIn('actors', ['-', ''])->get();
+            return $this->get_array($movies, ',');
+        });
+        return response()->json($actors, 200);
+    }
+
+    public function get_movies_by_actors(Request $request)
+    {
+
+        $movies = Movie::select('id', 'name', 'image_link', 'image', 'view_count')
+            ->where('actors', 'like', '%' . $request->actor . '%')->paginate(20);
+        foreach ($movies as $mov) {
+            $mov->rating = $this->getRating($mov->id);
+            if ($mov->view_count > 1000) {
+                $mov->view_count = number_format($mov->view_count / 1000, 1) . 'K';
+            }
+        }
+        return response()->json($movies, 200);
     }
 
     // Get Rating By Comment
@@ -134,6 +155,24 @@ class MovieController extends Controller
         } else {
             return 4;
         }
+    }
+
+    //ned to add string $array->data to split
+    private function get_array($array, $seprate)
+    {
+        $data = [];
+        foreach ($array as $category) {
+            $data_array = explode($seprate, $category->data);
+            foreach ($data_array as $key) {
+                $key = trim($key, " ");
+                $key = strtolower($key);
+                if (!in_array($key, $data) && $key != '') {
+                    array_push($data, $key);
+                }
+            }
+        }
+
+        return $data;
     }
 
 }

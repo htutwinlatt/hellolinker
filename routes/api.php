@@ -22,15 +22,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('apiPassword')->group(function () {
     Route::get('home', [HomePageController::class, 'index']);
-
     Route::prefix('movies')->group(function () {
         Route::get('', [MovieController::class, 'index']); //params['pages','s','orderBy']
         Route::post('info/{id}', [MovieController::class, 'show']); //id
-        Route::get('random/{type}/{count}',[MovieController::class,'random']); //count,type
-        Route::post('get_link',[MovieController::class,'get_link']); //id,name,trailer
+        Route::get('random/{type}/{count}', [MovieController::class, 'random']); //count,type
+        Route::post('get_link', [MovieController::class, 'get_link']); //id,name,trailer
 
         //Category Route
-        Route::get('category',[MovieController::class,'category']);
-        Route::post('category/search',[MovieController::class,'get_movies_by_type']);
+        Route::get('category', [MovieController::class, 'category']);
+        Route::post('category/search', [MovieController::class, 'get_movies_by_type']);
+
+        //Actors Route
+        Route::get('actors', [MovieController::class, 'actors']);
+        Route::post('actors/search', [MovieController::class, 'get_movies_by_actors']);
     });
 });

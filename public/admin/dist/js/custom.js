@@ -1,3 +1,5 @@
+
+
 let activeMenu = (mainMenu, subMenu) => {
     setTimeout(() => {
         $(mainMenu).click();
@@ -22,33 +24,46 @@ let getDate = (value) => {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
+    if (day.toString().length < 2) {
+        day = '0' + day;
+    }
+    if (month.toString().length < 2) {
+        month = '0' + month;
+    }
     if (value) {
-        return(day+'-'+month+'-'+year)
+        return (day + '-' + month + '-' + year)
 
     }
-    return(year+'-'+month+'-'+day)
+    return (year + '-' + month + '-' + day)
 }
 
 let subDate = (value) => {
-    let date = new Date();
-    let day = date.getDate()-value;
-    let minDay = day
+    const today = new Date();
+    const date = new Date(today);
+    date.setDate(today.getDate() - 5);
+    let day = date.getDate();
     let month = date.getMonth() + 1;
-    let minMonth = month
     let year = date.getFullYear();
     if (day.toString().length < 2) {
-        minDay = '0'+day;
+        day = '0' + day;
     }
     if (month.toString().length < 2) {
-        minMonth = '0'+month;
+        month = '0' + month;
     }
-    return(year+'-'+minMonth+'-'+minDay)
+    if (value) {
+        return (year + '-' + month + '-' + day)
+
+    }
+    return (year + '-' + month + '-' + day)
 }
 
-$('#epLinkAdd').click(function(){
+$('#epLinkAdd').click(function () {
     let oldValue = $('textArea[name="movieEpisode"]').val();
-    let newValue = oldValue+'Episode- ,'+' link|';
+    let newValue = oldValue + 'Episode- ,' + ' link|';
     $('textArea[name="movieEpisode"]').val(newValue);
     $('textArea[name="movieEpisode"]').focus()
 })
+
+
+
 

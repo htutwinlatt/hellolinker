@@ -375,7 +375,9 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('admin/dist/js/custom.js') }}"></script>
-    <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     {{-- -- JQuery UI --  --}}
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

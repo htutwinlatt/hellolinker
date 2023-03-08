@@ -16,10 +16,10 @@ class ApiPasswordMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        $key = '@@##helloLinkerApiRequestAllowByApplication##@@';
+        $key = config('app.api_password_key');
         if ($request->header('ApiPassword') == $key) {
             return $next($request);
         }
-        return response()->json(['error','Unknown Request!'], 200);
+        return response()->json(['error','Unknown Request!'], 403);
     }
 }
