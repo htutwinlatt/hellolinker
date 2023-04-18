@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
         //Movies
         Route::prefix('movies')->group(function () {
             Route::get('', [AdminMovieController::class, 'index'])->name('admin#movie_list');
+            Route::get('advance_search', [AdminMovieController::class, 'movies_advance_search'])->name('admin#mov_adv_search');
             Route::get('insert', [AdminMovieController::class, 'insertPage'])->name('admin#movie_insert');
             Route::post('insert', [AdminMovieController::class, 'insert'])->name('admin#movie_insert');
             Route::get('edit/{id}', [AdminMovieController::class, 'editPage'])->name('admin#movie_edit');
@@ -94,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('new_arrives', [AdminMovieController::class, 'new_arrives'])->name('admin#movie_new_arrives');
             Route::get('delete/{id}', [AdminMovieController::class, 'destroy'])->name('admin#movie_delete');
             Route::get('new_arrives/remove/{id}', [AdminMovieController::class, 'new_arr_remove'])->name('admin#new_arrive_remove');
+            Route::post('separate/category', [AdminMovieController::class, 'separate_category'])->name('admin#separate_category');
         });
         //Users
         Route::prefix('users')->group(function () {

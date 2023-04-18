@@ -70,6 +70,11 @@
                                                 <td class="">{{ $movie->view_count }}</td>
                                             </tr>
                                             <tr>
+                                                <td class="col-5"><i class="fa-solid fa-download"></i> Download  </td>
+                                                <td>:</td>
+                                                <td class="">{{ $movie->download_count }}</td>
+                                            </tr>
+                                            <tr>
                                                 <td class="col-5"><i class="fa-solid fa-tags"></i> Tags</td>
                                                 <td>:</td>
                                                 <td>
@@ -112,10 +117,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Movie Image</label>
+                                    <label for="exampleInputPassword1">Movie Image Link</label>
                                     <input value="{{ old('imageLink', $movie->image_link) }}" type="url"
                                         name="imageLink" class="form-control @error('imageLink') is-invalid @enderror"
-                                        id="exampleInputPassword1" placeholder="Password">
+                                        id="exampleInputPassword1" placeholder="Image Link">
                                     @error('imageLink')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -206,9 +211,33 @@
                                         name="releasedDate" class="form-control " id="releasedL">
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="cateoryL" class=" form-label">Category</label>
+                                    <select required name="category" id="cateoryL" class="form-control">
+                                        <option value="">Please select category</option>
+                                        <option value="movies" @if(old('category',$movie->category) == 'movies') selected @endif>Movies</option>
+                                        <option value="series" @if(old('category',$movie->category) == 'series') selected @endif>Series</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center justify-content-between">
+                                <div class=" form-check">
+                                    <input type="checkbox"  value="1"
+                                        {{ old('isComplete',$movie->complete) == '1' ? 'checked' : '' }} class="form-check-input"
+                                        name="isComplete" id="completeL">
+                                    <label for="completeL" class="form-check-label">Complete</label>
+                                </div> |
+                                <div class=" form-check">
+                                    <input type="checkbox"  value="1"
+                                        {{ old('newArrive',$movie->new_arrived) == '1' ? 'checked' : '' }} class="form-check-input"
+                                        name="newArrive" id="newArriveL">
+                                    <label for="newArriveL" class="form-check-label">New Arrive</label>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="descriptionL">Description</label>
+                                    <label for="descriptionL">ENG Description</label>
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="descriptionL"
                                         rows="5" placeholder="Enter description">{{ old('description', $movie->description) }}</textarea>
                                     @error('description')
@@ -216,13 +245,14 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="newArrive"
-                                        @if ($movie->new_arrived == '1') checked @endif id="newarrvieL">
-                                    <label class="form-check-label" for="newarrvieL">
-                                        New Arrive
-                                    </label>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="mm_descriptionL">MM Description</label>
+                                    <textarea name="mm_description" class="form-control @error('mm_description') is-invalid @enderror" id="mm_descriptionL"
+                                        rows="5" placeholder="အကြောင်းအရာ">{{ old('mm_description',$movie->mm_description) }}</textarea>
+                                    @error('mm_description')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

@@ -59,9 +59,25 @@ let subDate = (value) => {
 
 $('#epLinkAdd').click(function () {
     let oldValue = $('textArea[name="movieEpisode"]').val();
-    let newValue = oldValue + 'Episode- ,' + ' link|';
+    let values = oldValue.split('|');
+    let newValue = oldValue + 'Episode-'+values.length+' ,' + ' link|'+'\r\n';
     $('textArea[name="movieEpisode"]').val(newValue);
     $('textArea[name="movieEpisode"]').focus()
+})
+
+
+$('.movImageInput').change(function (e) {
+    e.preventDefault();
+    $('#imageInput').val('');
+    let files = this.files;
+    let url = URL.createObjectURL(files[0]);
+    $('.previewMovImg').attr('src',url)
+});
+
+$('#imageInput').change(function(e){
+    e.preventDefault();
+    $('.previewMovImg').attr('src',$(this).val())
+    $('.movImageInput').val('')
 })
 
 

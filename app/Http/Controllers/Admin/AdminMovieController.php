@@ -7,8 +7,6 @@ use App\Models\Comment;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use phpDocumentor\Reflection\Types\Null_;
-use PhpParser\Node\Expr\AssignOp\Mod;
 
 class AdminMovieController extends Controller
 {
@@ -28,7 +26,11 @@ class AdminMovieController extends Controller
     //Delete Movie
     public function destroy($id)
     {
-        $movie = Movie::find($id)->delete();
+        $movie = Movie::find($id);
+        if ($movie->image) {
+            $this->movieImageDel($movie->image);
+        }
+        $movie->delete();
         return back()->with('success', 'Delete Movie Successful');
     }
 
@@ -41,8 +43,9 @@ class AdminMovieController extends Controller
     }
     public function insert(Request $request)
     {
+        // dd($request->all());
         $request->validate($this->MovieValidator('create'));
-        Movie::create($this->saveMovie($request, Null));
+        Movie::create($this->saveMovie($request, null));
         return redirect()->route('admin#movie_list')->with('success', 'Create Movie Successful');
     }
 
@@ -50,7 +53,7 @@ class AdminMovieController extends Controller
     {
         $comment_count = Comment::where('movie_id')->count();
         $movie = Movie::find($id);
-        return view('admin.movie.edit', compact('movie','comment_count'));
+        return view('admin.movie.edit', compact('movie', 'comment_count'));
     }
     //Update Movie
     public function edit($id, Request $request)
@@ -65,9 +68,28 @@ class AdminMovieController extends Controller
     {
         $movie = Movie::find($id);
         $movie->update([
-            'new_arrived'=>0
+            'new_arrived' => 0,
         ]);
-        return back()->with('status','Remove Form New Arrived.');
+        return back()->with('status', 'Remove Form New Arrived.');
+    }
+
+    //Advance Search
+    public function movies_advance_search()
+    {
+        $movies = Movie::where('category', request('category'))->when(request('complete'), function ($q) {
+            $complete = request('complete') == 'yes' ? 1 : 0;
+            return $q->where('complete', $complete);
+        })->when(request('key'), function ($q) {
+            return $q->where('name', 'like', '%' . request('key') . '%');
+        })->orderBy('id', 'desc')->paginate(10);
+        return view('admin.movie.list', compact('movies'));
+    }
+
+    public function separate_category(Request $request)
+    {
+        Movie::where('link',NULL)->orWhere('link','')->update(['category'=>'series']);
+        Movie::where('episodes',NULL)->orWhere('episodes','')->update(['category'=>'movies']);
+        return redirect()->route("admin#movie_list")->with('status', 'Auto Separate Category Successful!');
     }
 
     private function saveMovie($request, $db)
@@ -76,7 +98,7 @@ class AdminMovieController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'link' => $request->movieLink,
-            'episodes'=>$request->movieEpisode,
+            'episodes' => $request->movieEpisode,
             'trailer' => $request->movieTrailer,
             'actors' => $request->actors,
             'studio' => $request->studio,
@@ -84,8 +106,11 @@ class AdminMovieController extends Controller
             'type' => $request->type,
             'role' => $request->role,
             'new_arrived' => $request->newArrive ? '1' : '0',
+            'complete' => $request->isComplete ? 1 : 0,
+            'category' => $request->category,
             'released_at' => $request->releasedDate,
             'image_link' => $request->imageLink,
+            'mm_description' => $request->mm_description,
         ];
         if ($request->hasFile('image')) {
             if ($db) {
@@ -94,13 +119,13 @@ class AdminMovieController extends Controller
             $image = uniqid() . '-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('public/movie_photos', $image);
             $action['image'] = $image;
-            $action['image_link']==NULL;
-        }else if($request->imageLink != ''){
+            $action['image_link'] == null;
+        } else if ($request->imageLink != '') {
             if ($db) {
                 $this->movieImageDel($db->image);
             }
-            $action['image'] = NULL;
-            $action['image'] = NULL;
+            $action['image'] = null;
+            $action['image'] = null;
         }
         return $action;
     }
@@ -114,7 +139,8 @@ class AdminMovieController extends Controller
             'movieTrailer' => 'required',
             'type' => 'required',
             'role' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'category' => 'required',
         ];
         $type == 'create' ? $action['image'] = 'image|mimes:jpeg,png,jpg,gif' : false;
         return $action;

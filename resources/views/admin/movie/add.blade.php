@@ -1,4 +1,7 @@
 @extends('layouts.admin_master')
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('admin/dist/css/toggleswitch.css') }}">
+@endsection
 @section('title')
     Add Movie
 @endsection
@@ -35,6 +38,9 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
+                            <div class="text-end">
+                                <img class="previewMovImg" style="width:100px" src="" alt="" srcset="">
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nameL">Movie Name</label>
@@ -49,8 +55,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="imageL">Image</label>
-                                    <input type="file" name="image"
-                                        class="form-control @error('image   ') is-invalid @enderror">
+                                    <input type="file" accept="image/*" name="image"
+                                        class="form-control movImageInput @error('image') is-invalid @enderror">
                                     @error('image')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -82,9 +88,10 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="epsodeInput">Movie With Eposode</label>
-                                    <button type="button" id="epLinkAdd" class="btn btn-primary btn-sm"><i class="fa-solid fa-paperclip"></i></button>
+                                    <button type="button" id="epLinkAdd" class="btn btn-primary btn-sm"><i
+                                            class="fa-solid fa-paperclip"></i></button>
                                     <textarea type="text" name="movieEpisode" rows="5"
-                                        class="form-control @error('movieEpisode') is-invalid @enderror"  id="epsodeInput" placeholder="Movie Drive Link">{{ old('movieEpisode') }}</textarea>
+                                        class="form-control @error('movieEpisode') is-invalid @enderror" id="epsodeInput" placeholder="Movie Drive Link">{{ old('movieEpisode') }}</textarea>
                                     @error('movieEpisode')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -151,12 +158,46 @@
                                         class="form-control " id="releasedL">
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="cateoryL" class=" form-label">Category</label>
+                                    <select required name="category" id="cateoryL" class="form-control">
+                                        <option value="">Please select category</option>
+                                        <option value="movies" @if(old('category') == 'movies') selected @endif>Movies</option>
+                                        <option value="series" @if(old('category') == 'series') selected @endif>Series</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center justify-content-between">
+                                <div class=" form-check">
+                                    <input type="checkbox"  value="1"
+                                        {{ old('isComplete') == '1' ? 'checked' : '' }} class="form-check-input"
+                                        name="isComplete" id="completeL">
+                                    <label for="completeL" class="form-check-label">Complete</label>
+                                </div> |
+                                <div class=" form-check">
+                                    <input type="checkbox"  value="1"
+                                        {{ old('newArrive') == '1' ? 'checked' : '' }} class="form-check-input"
+                                        name="newArrive" id="newArriveL">
+                                    <label for="newArriveL" class="form-check-label">New Arrive</label>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="descriptionL">Description</label>
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="descriptionL"
-                                        rows="5" placeholder="Enter description">{{ old('description') }}</textarea>
+                                    <label for="descriptionL">ENG Description</label>
+                                    <textarea required name="description" class="form-control @error('description') is-invalid @enderror"
+                                        id="descriptionL" rows="5" placeholder="Enter description">{{ old('description') }}</textarea>
                                     @error('description')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="mm_descriptionL">MM Description</label>
+                                    <textarea required name="mm_description" class="form-control @error('mm_description') is-invalid @enderror"
+                                        id="mm_descriptionL" rows="5" placeholder="အကြောင်းအရာ">{{ old('mm_description') }}</textarea>
+                                    @error('mm_description')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -181,7 +222,7 @@
         $(document).ready(function() {
             $('input').attr("autocomplete", "none")
             activeMenu('.side-movies', '.side-movies-insert')
-            $('.searchForm').attr('action', '{{ route('admin#movie_list') }}');
+            $('.searchForm').attr('action', "{{ route('admin#movie_list') }}");
         });
     </script>
 @endpush

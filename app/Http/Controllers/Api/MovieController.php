@@ -97,7 +97,7 @@ class MovieController extends Controller
     //Get Categories List
     public function category()
     {
-        $data = Cache::remember('categories_list', 60 * 15, function () {
+        $data = Cache::remember('categories_list', 60 * 60, function () {
             $categories = Movie::select('type as data')->get();
             return $this->get_array($categories, ',');
         });
@@ -123,7 +123,7 @@ class MovieController extends Controller
     public function actors()
     {
         $cacheKey = 'actors_list';
-        $cacheTime = 20 * 15;
+        $cacheTime = 60 * 60;
         $actors = Cache::remember($cacheKey, $cacheTime, function () {
             $movies = Movie::select('actors as data')->whereNotIn('actors', ['-', ''])->get();
             return $this->get_array($movies, ',');
