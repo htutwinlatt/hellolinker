@@ -1,4 +1,5 @@
-@extends('layouts.admin_master') @section('title')
+@extends('layouts.admin_master')
+@section('title')
     @if (request('view'))
         View
     @else

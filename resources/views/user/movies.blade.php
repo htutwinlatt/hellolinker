@@ -12,14 +12,7 @@
         <div class="row">
             <div class="col-md-2 ">
                 <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+
                 </div>
             </div>
             <!-- -- Links --  -->
@@ -76,19 +69,6 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($loop->index % 4 == 0 && $loop->index != 0)
-                            <div class=" m-1 my-2 movieCard forMovieAds w-100">
-                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                    crossorigin="anonymous"></script>
-                                <!-- New Box Ads -->
-                                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                                    data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || [])
-                                    .push({});
-                                </script>
-                            </div>
-                        @endif
                     @endforeach
                 </div>
                 <div class="mt-4">{{ $movies->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
@@ -96,22 +76,7 @@
             </div>
             <div class="col-md-2 ">
                 <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+
                 </div>
             </div>
         </div>

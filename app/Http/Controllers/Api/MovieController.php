@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
 use App\Models\DownloadCount;
 use App\Models\Movie;
 use App\Models\ViewCount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -28,9 +27,12 @@ class MovieController extends Controller
         })
             ->paginate(20);
         foreach ($movies as $mov) {
-            $mov->rating = $this->getRating($mov->id);
+            $mov->rating = getMovieRating($mov->id);
             if ($mov->view_count > 1000) {
                 $mov->view_count = number_format($mov->view_count / 1000, 1) . 'K';
+            }
+            if (!$mov->image_link) {
+                $mov->image_link = Storage::url('movie_photos/' . $mov->image);
             }
         }
         return response()->json($movies, 200);
@@ -53,7 +55,11 @@ class MovieController extends Controller
         $movie->update([
             'view_count' => $movie->view_count + 1,
         ]);
-        $movie->rating = $this->getRating($movie->id);
+        $movie->rating = getMovieRating($movie->id);
+        if (!$movie->image_link) {
+            $movie->image_link .= config('app.url') . '/' . Storage::url('movie_photos/' . $movie->image);
+
+        }
         $data = [
             'movie' => $movie,
         ];
@@ -69,7 +75,7 @@ class MovieController extends Controller
                 $q->orWhere('type', 'like', '%' . $t . '%');
             }
         })->limit($count)->get()->makeHidden(['link', 'episodes'])->each(function ($mov) {
-            $mov->rating = $this->getRating($mov->id);
+            $mov->rating = getMovieRating($mov->id);
         });
         return response()->json($movies, 200);
     }
@@ -110,9 +116,12 @@ class MovieController extends Controller
         $movies = Movie::select('id', 'name', 'image_link', 'image', 'view_count')
             ->where('type', 'like', '%' . $request->category . '%')->paginate(20);
         foreach ($movies as $mov) {
-            $mov->rating = $this->getRating($mov->id);
+            $mov->rating = getMovieRating($mov->id);
             if ($mov->view_count > 1000) {
                 $mov->view_count = number_format($mov->view_count / 1000, 1) . 'K';
+            }
+            if (!$mov->image_link) {
+                $mov->image_link = config('app.url') . '/' . Storage::url('movie_photos/' . $mov->image);
             }
         }
         return response()->json($movies, 200);
@@ -137,24 +146,15 @@ class MovieController extends Controller
         $movies = Movie::select('id', 'name', 'image_link', 'image', 'view_count')
             ->where('actors', 'like', '%' . $request->actor . '%')->paginate(20);
         foreach ($movies as $mov) {
-            $mov->rating = $this->getRating($mov->id);
+            $mov->rating = getMovieRating($mov->id);
             if ($mov->view_count > 1000) {
                 $mov->view_count = number_format($mov->view_count / 1000, 1) . 'K';
             }
+            if (!$mov->image_link) {
+                $mov->image_link = config('app.url') . '/' . Storage::url('movie_photos/' . $mov->image);
+            }
         }
         return response()->json($movies, 200);
-    }
-
-    // Get Rating By Comment
-    private function getRating($id)
-    {
-        $comments = Comment::select('movie_id', DB::raw('SUM(rating) as total_rating'))->groupBy('movie_id')->where('movie_id', $id)->first();
-        $comments_count = Comment::where('movie_id', $id)->count();
-        if ($comments) {
-            return $comments->total_rating / $comments_count;
-        } else {
-            return 4;
-        }
     }
 
     //ned to add string $array->data to split

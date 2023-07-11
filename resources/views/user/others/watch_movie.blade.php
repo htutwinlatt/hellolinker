@@ -1,148 +1,89 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ $movie->name }} - Hello Linker
+{{ $movie->name }} - Hello Linker
 @endsection
 @section('styles')
-    <style>
-        .downloadBtnContainer {
-            z-index: 10
-        }
-    </style>
+<style>
+    .downloadBtnContainer {
+        z-index: 10
+    }
+</style>
 @endsection
 @section('content')
-    <div class="container-fluid">
-        <div class="row my-3">
-            <div class="col-md-3">
-                <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
-            <span id="episodesText" class="d-none">{{ $movie->episodes }}</span>
-            <div class="col-md-6 my-2">
-                <h5>{{ $movie->name }} <span class="playingEp"></span></h5>
-                <div id="movieIframeContainer">
-                    {{-- <iframe id="movieIframe" src="" class="w-100" height="480" allow="autoplay"></iframe> --}}
-                </div>
-
-                <h5 class="">Please Scrolldown to get download link.</h5>
-            </div>
-            <div class="col-md-3">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                    crossorigin="anonymous"></script>
-                <!-- New Box Ads -->
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                    data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            <div class="col-md-3">
+<div class="container-fluid">
+    <div class="row my-3">
+        <div class="col-md-3">
+            <div class="forBoxAds">
 
             </div>
-            <div class="col-md-6 text-center  my-1">
-                <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
-                        data-ad-format="fluid" data-ad-client="ca-pub-4711089720936751" data-ad-slot="7642396731"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-                <div class="position-relative">
-                    <div class="downloadBtnCoverAds position-absolute">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                            crossorigin="anonymous"></script>
-                        <!-- New Box Ads -->
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                            data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                    <div class="downloadBtnContainer my-3">
-                        <button class="btn btn-primary downLoadingBtn" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
-                            Download Link...<span class="downCount">
-                                @if (Auth::user())
-                                    @if (Auth::user()->role == 'member' || Auth::user()->role == 'admin')
-                                        1
-                                    @endif
-                                @else
-                                    11
-                                @endif
+        </div>
+        <span id="episodesText" class="d-none">{{ $movie->episodes }}</span>
+        <div class="col-md-6 my-2">
+            <h5>{{ $movie->name }} <span class="playingEp"></span></h5>
+            <div id="movieIframeContainer">
+                {{-- <iframe id="movieIframe" src="" class="w-100" height="480" allow="autoplay"></iframe> --}}
+            </div>
 
-                            </span>
-                        </button>
-                        <a href="#" class="btn btn-primary d-none downloadBtn mb-3"><i
-                                class="fa-solid fa-cloud-arrow-down fs-3"></i> Download Movie Now</a>
-                    </div>
-                </div>
-                <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed"
-                        data-ad-client="ca-pub-4711089720936751" data-ad-slot="6304978928"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
+            <h5 class="">Please Scrolldown to get download link.</h5>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6 text-center  my-1">
+            <div class="forBoxAds">
 
             </div>
-            <div class="col-md-3">
-                <div class="forBoxAdx">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+            <div class="position-relative">
+                <div class="downloadBtnContainer my-3">
+                    <button class="btn btn-primary downLoadingBtn" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
+                        Download Link...<span class="downCount">
+                            @if (Auth::user())
+                            @if (Auth::user()->role == 'member' || Auth::user()->role == 'admin')
+                            1
+                            @endif
+                            @else
+                            11
+                            @endif
+
+                        </span>
+                    </button>
+                    <a href="#" class="btn btn-primary d-none downloadBtn mb-3"><i
+                            class="fa-solid fa-cloud-arrow-down fs-3"></i> Download Movie Now</a>
                 </div>
+            </div>
+            <div class="forBoxAds">
+
             </div>
 
         </div>
+        <div class="col-md-3">
+            <div class="forBoxAds">
+
+            </div>
+        </div>
+
     </div>
+</div>
 @endsection
 
 @push('scripts')
-    <script>
-        let watchLink = '';
+<script>
+    let watchLink = '';
         let downloadLink = '';
         $(document).ready(function() {
-            let downloadTime = localStorage.getItem('downloadTime');
-            if (!downloadTime) {
-                localStorage.setItem('downloadTime', 0);
-                downloadTime = 0;
-            }
-            if (downloadTime % 2 == 0) {
-                $('.downloadBtnCoverAds').addClass('d-none');
-            }
+            // let downloadTime = localStorage.getItem('downloadTime');
+            // if (!downloadTime) {
+            //     localStorage.setItem('downloadTime', 0);
+            //     downloadTime = 0;
+            // }
+            // if (downloadTime % 2 == 0) {
+            //     $('.downloadBtnCoverAds').addClass('d-none');
+            // }
             downloadTime++;
             localStorage.setItem('downloadTime', downloadTime)
             movieFrameLoading();
@@ -161,10 +102,10 @@
                 downloadLink = originLink;
             }
         }
-    </script>
-    @if ($movie->link != null && $movie->link != '')
-        <script>
-            console.log('hello');
+</script>
+@if ($movie->link != null && $movie->link != '')
+<script>
+    console.log('hello');
             let link = '{{ $movie->link }}'
             let movLink = link.split('/')
             getLink(movLink, link);
@@ -185,10 +126,10 @@
 
                 })
             });
-        </script>
-    @elseif ($movie->episodes != null && $movie->episodes != '')
-        <script>
-            let MovLinksEpisode = '';
+</script>
+@elseif ($movie->episodes != null && $movie->episodes != '')
+<script>
+    let MovLinksEpisode = '';
             let episodes = $('#episodesText').html();
             let eparray = episodes.split('|');
             let downCount = setInterval(() => {
@@ -261,6 +202,6 @@
                           </p>
                     </div>`)
             }
-        </script>
-    @endif
+</script>
+@endif
 @endpush

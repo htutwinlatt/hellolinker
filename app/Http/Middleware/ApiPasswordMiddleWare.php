@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Application;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,8 @@ class ApiPasswordMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        $key = config('app.api_password_key');
-        if ($request->header('ApiPassword') == $key) {
+        $keys = Application::pluck('key')->toArray();
+        if (in_array($request->header('ApiPassword'),$keys)) {
             return $next($request);
         }
         return response()->json(['error','Unknown Request!'], 403);

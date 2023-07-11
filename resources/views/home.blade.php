@@ -56,14 +56,7 @@
         <div class="row py-2 px-4">
             <div class="row">
                 <div class="col-md-12 text-center forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- New Box Ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+
                 </div>
             </div>
             <!--<div class="card text-dark" style="background: #D4AF37">-->
@@ -110,7 +103,10 @@
     <!-- New Arrive -->
     <div class="container-fluid mt-4">
         <div class="text-end">
-            <a href="{{ route('user#movies') }}" class="btn btn-primary"> <span language="eng">All Movies</span></a>
+            <a href="{{ route('user#movies') }}" class="btn btn-primary"> <span language="eng">
+                    Go To All Movies
+                    <i class="fa-solid fa-circle-arrow-right"></i>
+                </span></a>
         </div>
         <h5 class="text-center"><span language="eng">New Arrive</span></h5>
         <div class="line-mf rounded"></div>
@@ -129,31 +125,6 @@
                         </div>
                     </div>
                 </div>
-                <!--@if ($loop->index % 2 == 0)
-    -->
-                <!--    <div class="mx-2">-->
-                <!--        <div class="card w-100 rounded" style="height: 200px">-->
-                <!--            <div class="bg-image hover-overlay ripple " data-mdb-ripple-color="light">-->
-                <!--                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751" -->
-                                <!--                    crossorigin="anonymous"></script>-->
-                <!--                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"-->
-                <!--                    data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-4711089720936751"-->
-                <!--                    data-ad-slot="5352553970"></ins>-->
-                <!--                <script>
-                    -- >
-                    <
-                    !--(adsbygoogle = window.adsbygoogle || []) -- >
-                    <
-                    !--.push({});
-                    -- >
-                    <
-                    !--
-                </script>-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--
-    @endif-->
             @endforeach
         </div>
     </div>
@@ -161,14 +132,7 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-md-12 text-center forBoxAds">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                    crossorigin="anonymous"></script>
-                <!-- New Box Ads -->
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                    data-ad-slot="6565579201" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+
             </div>
         </div>
         <h5 class="text-center"><span language="eng"><i class="fa-solid fa-fire-flame-curved"></i> Popular Movie</span>
@@ -205,29 +169,6 @@
                     </div>
                 </div>
                 {{-- For Ads  --}}
-                <!--@if ($loop->index % 2 == 0)
-    -->
-                <!--    <div class="mx-2">-->
-                <!--        <div class="card w-100 rounded" style="height: 200px" style="background: #303030">-->
-                <!--            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751" -->
-                                <!--                crossorigin="anonymous"></script>-->
-                <!--            <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"-->
-                <!--                data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-4711089720936751"-->
-                <!--                data-ad-slot="5352553970"></ins>-->
-                <!--            <script>
-                    -- >
-                    <
-                    !--(adsbygoogle = window.adsbygoogle || []) -- >
-                    <
-                    !--.push({});
-                    -- >
-                    <
-                    !--
-                </script>-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--
-    @endif-->
             @endforeach
         </div>
     </div>

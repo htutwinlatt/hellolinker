@@ -59,7 +59,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0 mainNav" style="z-index: 10">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0 mainNav" style="z-index: 100">
         <!-- Container wrapper -->
         <div class="navbar-toggler">
             <a class="navbar-brand mt-2 mt-lg-0" href="{{ route('user#home') }}">
@@ -196,7 +196,7 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         @if (Auth::user())
             @if (Auth::user()->role == 'user')
                 @include('Ads.topPopUp')
@@ -206,7 +206,7 @@
             @include('Ads.topPopUp')
             @include('Ads.bottomPopUp')
         @endif
-    </div>
+    </div> --}}
     @yield('content')
     <!-- Footer Start -->
     <footer class="text-center text-lg-start bg-dark text-muted">
@@ -274,16 +274,16 @@
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">
-                            Useful links
+                            Others
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset"></a>
+                            <a href="{{ route('policy') }}" class="text-reset"><i class="fa-solid fa-shield-halved"></i> Privacy Policies</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset"></a>
+                            <a href="{{ route('aboutUs') }}" class="text-reset"><i class="fa-solid fa-circle-info"></i> About Us</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset"></a>
+                            <a href="{{ route('contactUs') }}" class="text-reset"><i class="fa-solid fa-door-open"></i> Contact Use</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset"></a>
@@ -337,13 +337,6 @@
     <script src="{{ asset('owncorousel/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('user/js/voicetotext.js') }}"></script>
     <script src="{{ asset('user/js/custom.js') }}"></script>
-    {{-- Google Adscence  --}}
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1234567890123456"
-        data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
     <script>
         // AOS.init();
     </script>

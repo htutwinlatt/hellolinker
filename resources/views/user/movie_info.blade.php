@@ -18,14 +18,7 @@
 
             <div class="col-md-2 ">
                 <div class="forBoxAds">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                        crossorigin="anonymous"></script>
-                    <!-- Box ads -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4711089720936751"
-                        data-ad-slot="9318935328" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+
                 </div>
             </div>
             <!-- -- Links --  -->
@@ -100,9 +93,6 @@
                                     <span language="eng">Generating link,please wait..</span>
                                 </div>
                                 <div class="position-relative">
-                                    <div class="position-absolute downloadBtnCoverAds">
-
-                                    </div>
                                     <div class="text-center  m-2">
                                         @if (!empty(Auth::user()))
                                             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'member')
@@ -136,16 +126,6 @@
                         <h5 class="text-center"><span language='eng'>Short Description</span></h5>
                         <div class="line-mf"></div>
                         <p data-aos="zoom-in" class=" text-muted bg-dark p-2 rounded">
-                            <!-- Google Adscence -->
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                crossorigin="anonymous"></script>
-                            <ins class="adsbygoogle" style="display:block; text-align:center;"
-                                data-ad-layout="in-article" data-ad-format="fluid"
-                                data-ad-client="ca-pub-4711089720936751" data-ad-slot="7642396731"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                            <!-- Google Adscence -->
                             {{ $movie->description }}
                         </p>
 
@@ -175,156 +155,114 @@
                             @enderror
                             <!-- Rating -->
                             <div class="mt-3">
-                                                                <label class="form-label" for="customRange1"><span language="eng">Rating</span></label>
-                                                                <input type="range" required min="1" max="4" name="rating" class="form-range cmtRating d-none" autocompleted="none" value="3">
-                                                            </div>
-                                                            <div class="d-flex ratingIconContainer justify-content-around fs-3 text-warning">
-                                                                <p><i class="ratIcon-1 fa-solid fa-face-frown rounded rounded-circle"></i></p>
-                                                                <p><i class="ratIcon-2 fa-solid fa-face-meh rounded rounded-circle"></i></p>
-                                                                <p><i class="ratIcon-3 fa-solid fa-face-smile-beam rounded rounded-circle border border-4 scaletwo"></i>
-                                                                </p>
-                                                                <p><i class="ratIcon-4 fa-solid fa-face-grin-hearts rounded rounded-circle"></i></p>
-                                                            </div>
-                                                            <p class="text-end">Rating : <span id="ratText"><span language="eng">good</span></span></p>
-                                                            <!-- Submit button -->
-                                                            <button type="submit" @if (empty(Auth::user())) disabled @endif class="btn btn-primary btn-block mt-2">
-                                                                <i class="fa-solid fa-paper-plane"></i>
-                                                                <span language="eng">Send</span>
-                                                            </button>
-                                                            @if (empty(Auth::user()))
+                                <label class="form-label" for="customRange1"><span language="eng">Rating</span></label>
+                                <input type="range" required min="1" max="4" name="rating"
+                                    class="form-range cmtRating d-none" autocompleted="none" value="3">
+                            </div>
+                            <div class="d-flex ratingIconContainer justify-content-around fs-3 text-warning">
+                                <p><i class="ratIcon-1 fa-solid fa-face-frown rounded rounded-circle"></i></p>
+                                <p><i class="ratIcon-2 fa-solid fa-face-meh rounded rounded-circle"></i></p>
+                                <p><i
+                                        class="ratIcon-3 fa-solid fa-face-smile-beam rounded rounded-circle border border-4 scaletwo"></i>
+                                </p>
+                                <p><i class="ratIcon-4 fa-solid fa-face-grin-hearts rounded rounded-circle"></i></p>
+                            </div>
+                            <p class="text-end">Rating : <span id="ratText"><span language="eng">good</span></span></p>
+                            <!-- Submit button -->
+                            <button type="submit" @if (empty(Auth::user())) disabled @endif
+                                class="btn btn-primary btn-block mt-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span language="eng">Send</span>
+                            </button>
+                            @if (empty(Auth::user()))
 <div class="mt-2">
-                                                                <span class="" language="eng">Please Login First to Give Comment <a href="{{ route('login') }}">Login..</a></span>
-                                                            </div>
+                                <span class="" language="eng">Please Login First to Give Comment <a
+                                        href="{{ route('login') }}">Login..</a></span>
+                            </div>
 @endif
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <hr class="my-1">
-                                                <!-- Random Movies-->
-                                                <section class="row mt-2 m-0 p-0">
+                        </form>
+                    </div>
+                </div>
+                <hr class="my-1">
+                <!-- Random Movies-->
+                <section class="row mt-2 m-0 p-0">
 
-                                                    <h5 class="text-center"><span language='eng'>Random Movie</span></h5>
-                                                    <div class="line-mf"></div>
-                                                    <div class="d-flex justify-content-evenly flex-wrap">
-                                                        @foreach ($rmovies as $rmovie)
+                    <h5 class="text-center"><span language='eng'>Random Movie</span></h5>
+                    <div class="line-mf"></div>
+                    <div class="d-flex justify-content-evenly flex-wrap">
+                        @foreach ($rmovies as $rmovie)
 <div class="card m-1 my-2 movieCard" style="width: 10rem;">
-                                                            <div class=" position-relative overflow-hidden">
-                                                                <img src="@if ($rmovie->image == null) {{ $rmovie->image_link }} @else {{ asset('storage/movie_photos/' . $rmovie->image) }} @endif" class="card-img-top" style="height: 8rem;" alt="...">
-                                                                <div class=" position-absolute bg-dark p-1 rounded   end-0 bottom-0" style="opacity: 0.9">
-                                                                    @php $floorRate= round($rmovie->rating($rmovie->id)) @endphp
-                                                                    @for ($a = 0; $a < 4; $a++)
+                            <div class=" position-relative overflow-hidden">
+                                <img src="@if ($rmovie->image == null) {{ $rmovie->image_link }} @else {{ asset('storage/movie_photos/' . $rmovie->image) }} @endif"
+                                    class="card-img-top" style="height: 8rem;" alt="...">
+                                <div class=" position-absolute bg-dark p-1 rounded   end-0 bottom-0"
+                                    style="opacity: 0.9">
+                                    @php $floorRate= round($rmovie->rating($rmovie->id)) @endphp
+                                    @for ($a = 0; $a < 4; $a++)
 <i class="fa-solid fa-star
                                     @if ($floorRate > $a) text-warning @endif"></i>
 @endfor
-                                                                        <small class="fs-smallest opacity-75 text-muted"><i class="fa-solid fa-eye "></i>
-                                                                            @if ($rmovie->view_count <= 999)
+                                        <small class="fs-smallest opacity-75 text-muted"><i
+                                                class="fa-solid fa-eye "></i>
+                                            @if ($rmovie->view_count <= 999)
 {{ $rmovie->view_count }}
 @else
 {{ round($rmovie->view_count / 1000, 1) }}K
 @endif </small>
-                                                                </div>
-                                                                <div class=" position-absolute start-50 top-50 translate-middle">
-                                                                    <a href="{{ route('user#movie_info', $rmovie->id) }}" class="fs-1 d-none text-primary shadow  movLink " id=""><i class="fa-solid fa-play"></i></a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="text-center">
-                                                                    <h6 class="card-title ">
-                                                                        {{ $rmovie->name }}</h6> <small class="fs-smallest opacity-75"></small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-@endforeach
-                                                    </div>
-                                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                                        crossorigin="anonymous"></script>
-                                                    <ins class="adsbygoogle"
-                                                         style="display:block"
-                                                         data-ad-format="autorelaxed"
-                                                         data-ad-client="ca-pub-4711089720936751"
-                                                         data-ad-slot="6304978928"></ins>
-                                                    <script>
-                                                        (adsbygoogle = window.adsbygoogle || []).push({});
-                                                    </script>
-                                                </section>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 ">
-                                            <div class="forBoxAds">
-                                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                                    crossorigin="anonymous"></script>
-                                            <!-- Box ads -->
-                                            <ins class="adsbygoogle"
-                                                 style="display:block"
-                                                 data-ad-client="ca-pub-4711089720936751"
-                                                 data-ad-slot="9318935328"
-                                                 data-ad-format="auto"
-                                                 data-full-width-responsive="true"></ins>
-                                            <script>
-                                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                            </script>
-                                                                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                                                                            crossorigin="anonymous"></script>
-                                            <!-- Box ads -->
-                                            <ins class="adsbygoogle"
-                                                 style="display:block"
-                                                 data-ad-client="ca-pub-4711089720936751"
-                                                 data-ad-slot="9318935328"
-                                                 data-ad-format="auto"
-                                                 data-full-width-responsive="true"></ins>
-                                            <script>
-                                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                            </script>
-                                                                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                                                                            crossorigin="anonymous"></script>
-                                            <!-- Box ads -->
-                                            <ins class="adsbygoogle"
-                                                 style="display:block"
-                                                 data-ad-client="ca-pub-4711089720936751"
-                                                 data-ad-slot="9318935328"
-                                                 data-ad-format="auto"
-                                                 data-full-width-responsive="true"></ins>
-                                            <script>
-                                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                            </script>
-                                                                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
-                                                                                            crossorigin="anonymous"></script>
-                                            <!-- Box ads -->
-                                            <ins class="adsbygoogle"
-                                                 style="display:block"
-                                                 data-ad-client="ca-pub-4711089720936751"
-                                                 data-ad-slot="9318935328"
-                                                 data-ad-format="auto"
-                                                 data-full-width-responsive="true"></ins>
-                                            <script>
-                                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                            </script>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+                                <div class=" position-absolute start-50 top-50 translate-middle">
+                                    <a href="{{ route('user#movie_info', $rmovie->id) }}"
+                                        class="fs-1 d-none text-primary shadow  movLink " id=""><i
+                                            class="fa-solid fa-play"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <h6 class="card-title ">
+                                        {{ $rmovie->name }}</h6> <small class="fs-smallest opacity-75"></small>
+                                </div>
+                            </div>
+                        </div>
+@endforeach
+                    </div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4711089720936751"
+                        crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed"
+                        data-ad-client="ca-pub-4711089720936751" data-ad-slot="6304978928"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </section>
+            </div>
+        </div>
+        <div class="col-md-2 ">
 
-    {{-- =====================================Modals============================================= --}}
-    <div class="modal fade" id="reportToAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+{{-- =====================================Modals============================================= --}}
+<div class="modal fade" id="reportToAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Report to Admin</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Report to Admin</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" id="reportForm" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="">
-                            <select required class="form-select bg-dark text-light" name="type" id="">
-                                <option value="">Please select reason...</option>
-                                <option value="link_dead">link is not work!</option>
-                                <option value="movie_cannot_watch">can't play movie!</option>
-                                <option value="movie_trailer_error">can't play movie trailer!</option>
-                            </select>
+                        <select required class="form-select bg-dark text-light" name="type" id="">
+                            <option value="">Please select reason...</option>
+                            <option value="link_dead">link is not work!</option>
+                            <option value="movie_cannot_watch">can't play movie!</option>
+                            <option value="movie_trailer_error">can't play movie trailer!</option>
+                        </select>
                     </div>
                     <div class="mt-2">
-                        <textarea name="remark" class="form-control" placeholder="Remark"  rows="5"></textarea>
+                        <textarea name="remark" class="form-control" placeholder="Remark" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -341,16 +279,6 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                let opentime = localStorage.getItem('openTime');
-                if (!opentime) {
-                    localStorage.setItem('openTime',0);
-                    opentime = 0;
-                }
-                if (opentime % 2 == 0) {
-                    $('.downloadBtnCoverAds').addClass('d-none');
-                }
-                opentime++;
-                localStorage.setItem('openTime',opentime)
                 getComments();
                 let _token = '{{ csrf_token() }}';
                 $('.nav-movies').addClass('active');
@@ -394,7 +322,7 @@
                         remark = parent.find('textarea[name="remark"]').val(),
                         $.ajax({
                             type: "POST",
-                            url: "{{ route('user#report') }}",
+                            url: "{{ route('user#report_submit') }}",
                             data: {
                                 movieId,
                                 type,

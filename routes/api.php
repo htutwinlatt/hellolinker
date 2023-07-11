@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\HomePageController;
 use App\Http\Controllers\Api\MovieController;
 use Illuminate\Http\Request;
@@ -36,4 +37,12 @@ Route::middleware('apiPassword')->group(function () {
         Route::get('actors', [MovieController::class, 'actors']);
         Route::post('actors/search', [MovieController::class, 'get_movies_by_actors']);
     });
+
+    Route::prefix('service')->group(function(){
+        Route::post('allmoviemm',[ApiController::class,'allmoviemm']);
+    });
+
+    Route::post('report', [ApiController::class,'addReport']); //type,movie_id,remark
 });
+
+Route::post('checkUpdate/{version}',[ApiController::class,'checkUpdate']);

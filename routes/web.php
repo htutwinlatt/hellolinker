@@ -1,20 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminMovieController;
+use App\Http\Controllers\Admin\AdminSlideShowControlller;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\LuckyDrawController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\MovieController;
-use App\Http\Controllers\User\ReportController;
-use App\Http\Controllers\User\CommentController;
-use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\PhoneBillController;
-use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\LuckyDrawController;
-use App\Http\Controllers\Admin\AdminMovieController;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\AdminSlideShowControlller;
-use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ReportController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,24 +39,27 @@ Route::get('/needvpn', function () {
 })->name('needvpn');
 
 // Route::middleware('blockMyanmar')->group(function(){
-    Route::get('/', [HomeController::class, 'index'])->name('user#home');
+Route::get('/', [HomeController::class, 'index'])->name('user#home');
+Route::get('policy', [HomeController::class, 'policy'])->name('policy');
+Route::get('about_us', [HomeController::class, 'aboutUs'])->name('aboutUs');
+Route::get('contact_us', [HomeController::class, 'contactUs'])->name('contactUs');
 
-    Route::prefix('movies')->group(function () {
-        Route::get('', [MovieController::class, 'index'])->name('user#movies');
-        Route::get('{id}', [MovieController::class, 'info'])->name('user#movie_info');
-        Route::get('comments/{id}', [CommentController::class, 'index'])->name('user#movie_comments');
-        Route::get('get_link/{id}/{name}', [MovieController::class, 'get_link'])->name('user#movie_get_link');
-        Route::get('get_comment_preview/{id}', [CommentController::class, 'get_comments_preview'])->name('user#comment_preview');
-    });
-    Route::prefix('category')->group(function () {
-        Route::get('', [MovieController::class, 'category_page'])->name('user#category_page');
-        Route::get('list', [MovieController::class, 'category_list'])->name('user#category_list');
-        Route::get('search/{id}', [MovieController::class, 'search_by_category'])->name('user#category_search');
-    });
+Route::prefix('movies')->group(function () {
+    Route::get('', [MovieController::class, 'index'])->name('user#movies');
+    Route::get('{id}', [MovieController::class, 'info'])->name('user#movie_info');
+    Route::get('comments/{id}', [CommentController::class, 'index'])->name('user#movie_comments');
+    Route::get('get_link/{id}/{name}', [MovieController::class, 'get_link'])->name('user#movie_get_link');
+    Route::get('get_comment_preview/{id}', [CommentController::class, 'get_comments_preview'])->name('user#comment_preview');
+});
+Route::prefix('category')->group(function () {
+    Route::get('', [MovieController::class, 'category_page'])->name('user#category_page');
+    Route::get('list', [MovieController::class, 'category_list'])->name('user#category_list');
+    Route::get('search/{id}', [MovieController::class, 'search_by_category'])->name('user#category_search');
+});
 
-    Route::prefix('report')->group(function(){
-        Route::post('', [ReportController::class, 'insert'])->name('user#report');
-    });
+Route::prefix('report')->group(function () {
+    Route::post('submit', [ReportController::class, 'insert'])->name('user#report_submit');
+});
 // });
 
 Route::middleware(['auth'])->group(function () {
@@ -82,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
         //Dashboard
         Route::prefix('dashboard')->group(function () {
             Route::get('', [AdminDashboardController::class, 'index'])->name('admin#dashboard');
-            Route::post('view_count',[AdminDashboardController::class,'view_count'])->name('admin#view_count');
+            Route::post('view_count', [AdminDashboardController::class, 'view_count'])->name('admin#view_count');
         });
         //Movies
         Route::prefix('movies')->group(function () {
@@ -115,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('destroy/{id}', [AdminSlideShowControlller::class, 'destroy'])->name('admin#slideshow_destroy');
             Route::get('edit/{id}', [AdminSlideShowControlller::class, 'editPage'])->name('admin#slideshow_edit');
             Route::post('edit/{id}', [AdminSlideShowControlller::class, 'update'])->name('admin#slideshow_edit');
-            Route::post('sort',[AdminSlideShowControlller::class,'sort'])->name('admin#slideshow_sort');
+            Route::post('sort', [AdminSlideShowControlller::class, 'sort'])->name('admin#slideshow_sort');
         });
 
         Route::prefix('lucky_draw')->group(function () {
@@ -124,21 +129,21 @@ Route::middleware(['auth'])->group(function () {
             Route::get('reset/table', [LuckyDrawController::class, 'reset'])->name('admin#lucky_reset');
         });
 
-
-        Route::prefix('report')->group(function(){
-            Route::get('',[AdminReportController::class,'index'])->name('admin#report');
-            Route::post('more',[AdminReportController::class,'more'])->name('admin#report_more');
-            Route::post('solved',[AdminReportController::class,'destroy'])->name('admin#report_solve');
+        Route::prefix('report')->group(function () {
+            Route::get('', [AdminReportController::class, 'index'])->name('admin#report');
+            Route::post('more', [AdminReportController::class, 'more'])->name('admin#report_more');
+            Route::post('solved', [AdminReportController::class, 'destroy'])->name('admin#report_solve');
         });
+        Route::resource('posts', PostController::class);
+        Route::resource('application',ApplicationController::class);
+        Route::post('changeAppStatus',[ApplicationController::class,'chgStatus'])->name('admin#change_status');
     });
 });
 
-
-Route::get('/clear',function(){
+Route::get('/clear', function () {
     Artisan::call("cache:clear");
     Artisan::call("config:cache");
     Artisan::call("route:clear");
     Artisan::call("view:clear");
     echo "<h3> Cache Cleared </h3>";
 });
-

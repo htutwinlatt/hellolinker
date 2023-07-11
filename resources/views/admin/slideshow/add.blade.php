@@ -64,15 +64,17 @@
                         </div>
                         <div class="form-group">
                             <label for="imageL">Image</label>
-                            <input type="file"  name="image"
-                                class="form-control  @error('image') is-invalid @enderror" autocomplete="none" />
+                            <input type="file" name="image" class="form-control  @error('image') is-invalid @enderror"
+                                autocomplete="none" />
                             @error('image')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="linkL">Image Link @if($autoFill) <a href="{{$autoFill->image_link}}">view</a> @endif </label>
-                            <input type="text"  class="form-control" name="imageLink" id="linkL"
+                            <label for="linkL">Image Link @if ($autoFill)
+                                    <a href="{{ $autoFill->image_link }}">view</a>
+                                @endif </label>
+                            <input type="text" class="form-control" name="imageLink" id="linkL"
                                 value="@isset($autoFill->image_link) {{ old('imageLink', $autoFill->image_link) }} @endisset"
                                 placeholder="Enter Title" />
                         </div>

@@ -85,7 +85,7 @@ let selLanguage = () => {
         $('#catSearchInput').attr("placeholder", "Search Categories")
     }
     $("span[language]").hide();
-    $(`span[language="eng"`).show();
+    $(`span[language="eng"]`).show();
     $(".selLanguage").html($(`a[language=${userChoose}]`).html());
 };
 
