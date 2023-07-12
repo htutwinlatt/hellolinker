@@ -191,7 +191,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('posts.index') }}" class="nav-link side-lucky_draw">
+                            <a href="{{ route('posts.index') }}" class="nav-link side-post">
                                 <i class="fa-solid fa-signs-post"></i>
                                 <p>
                                     Posts
@@ -207,7 +207,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('application.index') }}" class="nav-link side-lucky_draw">
+                            <a href="{{ route('application.index') }}" class="nav-link side-application">
                                 <i class="fa-brands fa-google-play"></i>
                                 <p>
                                     Applications

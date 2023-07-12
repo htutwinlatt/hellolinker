@@ -9,3 +9,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            activeMenu('.side-post');
+        });
+    </script>
+@endpush

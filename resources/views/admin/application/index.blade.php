@@ -82,6 +82,7 @@
     <script>
         let _token = '{{ csrf_token() }}';
         $(document).ready(function() {
+            activeMenu('.side-application');
             $('.changeAppStatus').click(function(e) {
                 e.preventDefault();
                 const that = $(this);
